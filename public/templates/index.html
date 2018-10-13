@@ -1,0 +1,150 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12-sm">
+      
+    <h1><b>Machine Learning</b></h1>
+
+    <form name="MeachineLearningForm"   method="get">
+        <h3>选择数据集 *</h3>
+        <li ng-repeat="indexName in ctrl.indices">
+            <input type="radio" name="index" value={{indexName}}><a href="#/index/{{indexName}}">{{ indexName }}</a>
+        </li>
+		
+		<br><h3>范围</h3>
+        <p>From: <input type='text' name="from" value=0>*<br>
+        <p>Size: <input type='text' name="size" value=150>*<br>
+
+		<br><h3>分类属性（默认最后一列）</h3>
+		<p><input type="text" name="classifyAttributeName" value="classify"></p><br>
+		
+		<br><button id = "dataVisualizeButton">Analyze & Predict</button>
+
+		
+        <br><h3>选择算法</h3>
+        <select name="clfName" value="J48">
+            <option value=""></option>
+            <option value="J48">1、J48</option>
+            <option value="RandomForest">2、RandomForest</option>
+            <option value="SMO">3、SMO</option>
+			<option value="MultilayerPerceptron">4、MultilayerPerceptron</option>
+			<option value="Logistic">5、Logistic</option>
+			<option value="RandomTree">6、DecisionTree</option>
+			<option value="BayesNet">7、BayesNet</option>
+			<option value="AdaBoostM1">8、AdaBoostM1</option>
+			<option value="Bagging">9、Bagging</option>
+        </select><br>
+		
+		<h3>属性选择</h3>
+        <input type="radio" name="attributeSelect" value="1">Yes<br>
+        <input type="radio" name="attributeSelect" value="0">No<br>
+
+        <br><h3>向量化</h3>
+        <input type="radio" name="vectorize" value="1">Yes<br>
+        <input type="radio" name="vectorize" value="0">No<br>
+		
+		<br><h3>删除属性（用逗号分隔）: </h3>
+		<!-- <p><input type="text" name="deleteAttributeSet" value="ROUGH_MEASURE_METHOD"></p><br> -->
+		<p><input type="text" name="deleteAttributeSet" value=""></p><br>
+        <!-- classify -->
+    </form>
+	<button id = "submitButton">Run</button> 
+	
+	</div>
+  </div>
+
+  <hr>
+    <h4><b>Linked:</b></h4>
+    <p>1、<a href="#/cluster_health">查看集群健康状况</a></p>
+    <p>2、<a href="#/indices_analyze">分析索引</a></p>
+    <p>3、<a href="#/taste_event">taste_event</a></p>
+    <p>4、<a href="#/MeachineLearning">MeachineLearning</a></p>
+	<p>5、<a href="http://127.0.0.1:9200/_taste/index=iris-dgw&from=0&size=150&clfName=J48&classifyAttributeName=classify">ML demo</a></p>
+	<p>4、<a href="#/test">test</a></p>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	// 1、数据可视化
+	$("#dataVisualizeButton").click(function(){
+		if(generateShowDataURL()){
+			redirectPrefix = 'http://127.0.0.1:8080/dataVisualize.html';
+			redirect = redirectPrefix + '?ref=' + encodeURIComponent(url);
+			console.log("showData : redirect = "+redirect);
+			//self.location = redirect;
+			self.location = redirectPrefix;
+		}
+
+	});
+	
+	// 2、机器学习
+	$("#submitButton").click(function(){
+		// 使用generateURL()进行表单验证以及生成url
+		if(generateURL()){
+			var redirectPrefix = 'http://127.0.0.1:8080/index.html?ref=';
+			if(document.forms["MeachineLearningForm"]["clfName"].value==""){
+				redirectPrefix = 'http://127.0.0.1:8080/showData.html?ref=';
+			}
+			
+			doNothingURL = "http://127.0.0.1:9200/_taste";
+			// 使用重定向技术，将htpps页面跳转到新服务器的http页面，并将得到的url传递给新的服务器
+			redirect = redirectPrefix + encodeURIComponent(url);
+			self.location= redirect;
+		}
+	});
+	
+});
+
+function generateShowDataURL(){
+	var s = new Array();
+	s[0] = "MeachineLearningForm";
+	s[1] = "index";
+	s[2] = "from";
+	s[3] = "size";
+	s[4] = 'classifyAttributeName';
+
+	url = "http://127.0.0.1:9200/_taste/parameter?";
+	var value = new Array();
+	for(var i=1; i<s.length; i++){
+		value[i] = document.forms[s[0]][s[i]].value;
+		if(value[i]==""){
+			alert("Please fill the "+s[i]+" item !");
+			return false;
+		}
+		url+=s[i]+"="+value[i]+"&";
+	}
+	url = url.substring(0, url.length-1);
+	return true;
+}
+
+function generateURL() {
+	var s = new Array();
+	s[0] = "MeachineLearningForm";
+	s[1] = "index";
+	s[2] = "from";
+	s[3] = "size";
+	s[4] = "attributeSelect";
+	s[5] = "vectorize";
+	s[6] = "clfName";
+	s[7] = "classifyAttributeName";
+	s[8] = "deleteAttributeSet";
+	
+	url = "http://127.0.0.1:9200/_taste/parameter?";
+	var value = new Array();
+	value[0]="";
+	for(var i=1; i<s.length; i++)
+	{
+		value[i] = document.forms[s[0]][s[i]].value;
+		if(i!=6 && i!=8 && (value[i]=="" || value[i]==null)){
+			alert("Please fill the "+s[i]+" item !");
+			return false;
+		}
+		url+=s[i]+"="+value[i]+"&";
+	}
+	url = url.substring(0, url.length-1);
+	return true;
+}
+</script>
+
+
+    

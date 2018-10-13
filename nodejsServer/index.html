@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Meachine Learning Evaluation</title>
+</head>
+<body bgcolor="#fef8ef">
+	<div style="position:absolute;left:30px;top:30px;">
+		<button id = "retu">return</button><br>
+		<h1><b>Machine Learning Evaluation</b></h1>
+		<button id = "show">+</button><br>
+		<div id="div1"></div>
+		<!-- <ul>
+			<p id="p1"></p><br>
+		</ul> -->
+			
+		<div>
+			<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+			<!-- 分类情况 -->
+			<div id="main4" style="width: 500px;height:300px;"></div>
+			<!-- 统计量 -->
+			<div id="main2" style="width: 800px;height:300px;"></div>
+			<!-- 正确率 -->
+			<div id="main3" style="position:absolute;left:500px;top:15px;width: 400px;height:400px;"></div>
+			
+			
+			<!-- <div id="main5" style="position:absolute;left:800px;top:0px;" >
+					<iframe width="800" height="1000" src="http://127.0.0.1:8080/showData.html?ref=http%3A%2F%2F127.0.0.1%3A9200%2F_taste%2Fparameter%3Findex%3Diris-dgw%26from%3D0%26size%3D150%26attributeSelect%3D0%26vectorize%3D0%26clfName%3D%26classifyAttributeName%3Dclassify%26deleteAttributeSet%3D"></iframe>
+			</div> -->
+			
+			<!-- 散点图 -->
+			<div id="main6Head" style="position:absolute;left:1000px;top:0px;width: 800px;height:20px;">
+				<h1 id='main6HeadTitle'>Visualization</h1>
+				<p id='main6HeadText'></p>
+			</div>			
+			<div id="main6" style="position:absolute;left:800px;top:80px;width: 800px;height:1000px;"></div>
+		</div>
+		
+		<!-- 显示或隐藏数据集数据 -->
+		<div id="div2"></div>
+
+
+		<script src="lib/echarts.min.js"></script>
+		<script src="lib/echarts-gl.min.js"></script>
+		<script src="lib/theme/vintage.js"></script>
+		<script src="lib/theme/dark.js"></script>
+		<script src="lib/echarts-liquidfill-master/dist/echarts-liquidfill.js"></script>
+		<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script type="text/javascript" src="index.js"></script>
+	</div>
+</body>
+</html>

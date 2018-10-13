@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Meachine Learning Evaluation</title>
+</head>
+
+<body bgcolor="#fef8ef">
+	<div style="position:absolute;left:200px;top:30px;">
+		<h1><b>Data visualization</b></h1>
+            
+        <br><h3>Select a dataset</h3>
+        <li>
+            <input type="radio" value="index-c008_03">index-c008_03</a>
+        </li>
+        <li>
+            <input type="radio" value=".kibana">.kibana</a>
+        </li>
+        <li>
+            <input type="radio" value="Iris-dgw">Iris-dgw</a>
+        </li>
+        <li>
+            <input type="radio" value="iris-2">iris-2</a>
+        </li>
+        <li>
+            <input type="radio" value="food-nutrition">food-nutrition</a>
+        </li>
+        <li>
+            <input type="radio" value="iris-2">iris-2</a>
+        </li>
+
+        <br><button>Visualize</button>
+
+		<div>
+			<div id="main" style="position:absolute;left:600px;top:80px;width: 800px;height:700px;"></div>
+		</div>
+		
+		<script src="lib/echarts.min.js"></script>
+		<script src="lib/echarts-gl.min.js"></script>
+		<script src="lib/theme/vintage.js"></script>
+		<script src="lib/theme/dark.js"></script>
+		<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+	</div>
+</body>
+
+<script>
+    // 打开nodejs server，输入网址，即可查看该页面 http://127.0.0.1:8080/showDataPlus.html
+    var indices = {
+        name: 0,
+        group: 1,
+        id: 16
+    };
+    var schema = [
+        {name: 'name', index: 0},
+        {name: 'group', index: 1},
+        {name: 'a', index: 2},
+        {name: 'b', index: 3},
+        {name: 'c', index: 4},
+        {name: 'fiber', index: 5},
+        {name: 'vitaminc', index: 6},
+        {name: 'potassium', index: 7},
+        {name: 'carbohydrate', index: 8},
+        {name: 'sugars', index: 9},
+        {name: 'fat', index: 10},
+        {name: 'water', index: 11},
+        {name: 'calories', index: 12},
+        {name: 'saturated', index: 13},
+        {name: 'monounsat', index: 14},
+        {name: 'polyunsat', index: 15},
+        {name: 'id', index: 16}
+    ];
+    var data;
+
+    var fieldIndices = schema.reduce(function (obj, item) {
+        obj[item.name] = item.index;
+        return obj;
+    }, {});
+
+    var groupCategories = [];
+    var groupColors = [];
+    var data;
+    var fieldNames = schema.map(function (item) {
+        return item.name;
+    });
+    fieldNames = fieldNames.slice(2, fieldNames.length - 2);
+
+    function getMaxOnExtent(data) {
+        var colorMax = -Infinity;
+        var symbolSizeMax = -Infinity;
+        for (var i = 0; i < data.length; i++) {
+            var item = data[i];
+            var colorVal = item[fieldIndices[config.color]];
+            var symbolSizeVal = item[fieldIndices[config.symbolSize]];
+            colorMax = Math.max(colorVal, colorMax);
+            symbolSizeMax = Math.max(symbolSizeVal, symbolSizeMax);
+        }
+        return {
+            color: colorMax,
+            symbolSize: symbolSizeMax
+        };
+    }
+
+    //var config = app.config = {
+    var config = {
+        xAxis3D: 'a',
+        yAxis3D: 'b',
+        zAxis3D: 'c',
+        color: 'fiber',
+        symbolSize: 'vitaminc',
+
+        onChange: function () {
+            var max = getMaxOnExtent(data);
+            if (data) {
+                myChart.setOption({
+                    visualMap: [{
+                        max: max.color / 2
+                    }, {
+                        max: max.symbolSize / 2
+                    }],
+                    xAxis3D: {
+                        name: config.xAxis3D
+                    },
+                    yAxis3D: {
+                        name: config.yAxis3D
+                    },
+                    zAxis3D: {
+                        name: config.zAxis3D
+                    },
+                    series: {
+                        dimensions: [
+                            config.xAxis3D,
+                            config.yAxis3D,
+                            config.yAxis3D,
+                            config.color,
+                            config.symbolSiz
+                        ],
+                        data: data.map(function (item, idx) {
+                            return [
+                                item[fieldIndices[config.xAxis3D]],
+                                item[fieldIndices[config.yAxis3D]],
+                                item[fieldIndices[config.zAxis3D]],
+                                item[fieldIndices[config.color]],
+                                item[fieldIndices[config.symbolSize]],
+                                idx
+                            ];
+                        })
+                    }
+                });
+            }
+        }
+    };
+    // app.configParameters = {};
+    // ['xAxis3D', 'yAxis3D', 'zAxis3D', 'color', 'symbolSize'].forEach(function (fieldName) {
+    //     app.configParameters[fieldName] = {
+    //         options: fieldNames
+    //     };
+    // });
+
+    
+    var s = '[["Beverage", "Dairy", 19.9, 0.285, 0.385, 0.4, 0.07690000000000001, 0.947, 66.2, 65.8, 1.4, 7.4, 357, 0.56, 0.314, 0.278, 27481],["Beverage, instant breakfast powder, chocolate, sugar-free, not reconstituted", "Dairy and Egg Products", 35.8, 0.5, 0.717, 2, 0.138, 1.705, 41, 39, 5.1, 7.4, 358, 2.162, 1.189, 1.027, 27482]]';
+    var data = JSON.parse(s);
+    console.log(data[0]);
+    var max = getMaxOnExtent(data);
+    var myChart = echarts.init(document.getElementById('main'),'dark');
+    myChart.setOption({
+        tooltip: {},
+        visualMap: [{
+            top: 10,
+            calculable: true,
+            dimension: 3,
+            max: max.color / 2,
+            inRange: {
+                color: ['#1710c0', '#0b9df0', '#00fea8', '#00ff0d', '#f5f811', '#f09a09', '#fe0300']
+            },
+            textStyle: {
+                color: '#fff'
+            }
+        }, {
+            bottom: 10,
+            calculable: true,
+            dimension: 4,
+            max: max.symbolSize / 2,
+            inRange: {
+                symbolSize: [10, 40]
+            },
+            textStyle: {
+                color: '#fff'
+            }
+        }],
+        xAxis3D: {
+            name: config.xAxis3D,
+            type: 'value'
+        },
+        yAxis3D: {
+            name: config.yAxis3D,
+            type: 'value'
+        },
+        zAxis3D: {
+            name: config.zAxis3D,
+            type: 'value'
+        },
+        grid3D: {
+            axisLine: {
+                lineStyle: {
+                    color: '#fff'
+                }
+            },
+            axisPointer: {
+                lineStyle: {
+                    color: '#ffbd67'
+                }
+            },
+            viewControl: {
+                // autoRotate: true
+                // projection: 'orthographic'
+            }
+        },
+        series: [{
+            type: 'scatter3D',
+            dimensions: [
+                config.xAxis3D,
+                config.yAxis3D,
+                config.yAxis3D,
+                config.color,
+                config.symbolSiz
+            ],
+            data: data.map(function (item, idx) {
+                return [
+                    item[fieldIndices[config.xAxis3D]],
+                    item[fieldIndices[config.yAxis3D]],
+                    item[fieldIndices[config.zAxis3D]],
+                    item[fieldIndices[config.color]],
+                    item[fieldIndices[config.symbolSize]],
+                    idx
+                ];
+            }),
+            symbolSize: 12,
+            // symbol: 'triangle',
+            itemStyle: {
+                borderWidth: 1,
+                borderColor: 'rgba(255,255,255,0.8)'
+            },
+            emphasis: {
+                itemStyle: {
+                    color: '#fff'
+                }
+            }
+        }]
+    });
+
+
+
+
+
+    $.getJSON('', function (_data) {
+        // data = _data;
+        var s = '[["Beverage", "Dairy", 19.9, 0.285, 0.385, 0.4, 0.07690000000000001, 0.947, 66.2, 65.8, 1.4, 7.4, 357, 0.56, 0.314, 0.278, 27481],["Beverage, instant breakfast powder, chocolate, sugar-free, not reconstituted", "Dairy and Egg Products", 35.8, 0.5, 0.717, 2, 0.138, 1.705, 41, 39, 5.1, 7.4, 358, 2.162, 1.189, 1.027, 27482]]';
+        console.log(s);
+        var data = JSON.parse(s);
+        cosole.log(data[0]);
+
+        // var max = getMaxOnExtent(data);
+        // var myChart = echarts.init(document.getElementById('main'),'vintage');
+        // myChart.setOption({
+        //     tooltip: {},
+        //     visualMap: [{
+        //         top: 10,
+        //         calculable: true,
+        //         dimension: 3,
+        //         max: max.color / 2,
+        //         inRange: {
+        //             color: ['#1710c0', '#0b9df0', '#00fea8', '#00ff0d', '#f5f811', '#f09a09', '#fe0300']
+        //         },
+        //         textStyle: {
+        //             color: '#fff'
+        //         }
+        //     }, {
+        //         bottom: 10,
+        //         calculable: true,
+        //         dimension: 4,
+        //         max: max.symbolSize / 2,
+        //         inRange: {
+        //             symbolSize: [10, 40]
+        //         },
+        //         textStyle: {
+        //             color: '#fff'
+        //         }
+        //     }],
+        //     xAxis3D: {
+        //         name: config.xAxis3D,
+        //         type: 'value'
+        //     },
+        //     yAxis3D: {
+        //         name: config.yAxis3D,
+        //         type: 'value'
+        //     },
+        //     zAxis3D: {
+        //         name: config.zAxis3D,
+        //         type: 'value'
+        //     },
+        //     grid3D: {
+        //         axisLine: {
+        //             lineStyle: {
+        //                 color: '#fff'
+        //             }
+        //         },
+        //         axisPointer: {
+        //             lineStyle: {
+        //                 color: '#ffbd67'
+        //             }
+        //         },
+        //         viewControl: {
+        //             // autoRotate: true
+        //             // projection: 'orthographic'
+        //         }
+        //     },
+        //     series: [{
+        //         type: 'scatter3D',
+        //         dimensions: [
+        //             config.xAxis3D,
+        //             config.yAxis3D,
+        //             config.yAxis3D,
+        //             config.color,
+        //             config.symbolSiz
+        //         ],
+        //         data: data.map(function (item, idx) {
+        //             return [
+        //                 item[fieldIndices[config.xAxis3D]],
+        //                 item[fieldIndices[config.yAxis3D]],
+        //                 item[fieldIndices[config.zAxis3D]],
+        //                 item[fieldIndices[config.color]],
+        //                 item[fieldIndices[config.symbolSize]],
+        //                 idx
+        //             ];
+        //         }),
+        //         symbolSize: 12,
+        //         // symbol: 'triangle',
+        //         itemStyle: {
+        //             borderWidth: 1,
+        //             borderColor: 'rgba(255,255,255,0.8)'
+        //         },
+        //         emphasis: {
+        //             itemStyle: {
+        //                 color: '#fff'
+        //             }
+        //         }
+        //     }]
+        // });
+    });
+</script>
+</html>

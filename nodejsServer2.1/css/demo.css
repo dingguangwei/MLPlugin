@@ -1,0 +1,130 @@
+body, html { font-size: 100%; 	padding: 0; margin: 0;}
+
+/* Reset */
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+/* Clearfix hack by Nicolas Gallagher: http://nicolasgallagher.com/micro-clearfix-hack/ */
+.clearfix:before,
+.clearfix:after {
+	content: " ";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+body{
+	background: #494A5F;
+	color: #D5D6E2;
+	font-weight: 500;
+	font-family: "Microsoft YaHei","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif;
+}
+a{ color: rgba(255, 255, 255, 0.6);outline: none;text-decoration: none;-webkit-transition: 0.2s;transition: 0.2s;}
+a:hover,a:focus{color:#74777b;text-decoration: none;}
+
+
+
+.toggle {
+	display: block;
+	height: 72px;
+	line-height: 72px;
+	text-align: center;
+	width: 72px;
+}
+
+input {
+	border:0;border-bottom:1 solid black;background:#f4f4f4;
+}
+
+select{
+	border-right: #000000 1px solid;
+	border-top: #ffffff 1px solid;
+	font-size: 16px;
+	border-left: #ffffff 1px solid;
+	color:#003366;
+	border-bottom: #000000 1px solid;
+	background-color: #f4f4f4;
+}
+
+/* button{
+	font-family: "tahoma", "宋体";
+	font-size:14pt; color: #000000;
+	border: 1px #003399 solid;
+	color:#006699;
+	border-bottom: #93bee2 1px solid;
+	border-left: #93bee2 1px solid;
+	border-right: #93bee2 1px solid;
+	border-top: #93bee2 1px solid;
+	background-color: #f4f4f4;
+	cursor: hand;
+	font-style: normal ;
+	width:60px;
+	height:30px;
+} */
+
+/* 按钮 */
+.button {
+	display: inline-block;
+	position: relative;
+	margin: 10px;
+	padding: 0 20px;
+	text-align: center;
+	text-decoration: none;
+	font: bold 12px/25px Arial, sans-serif;
+}
+
+.button:hover {
+	-webkit-box-shadow: 1px 1px 1px rgba(0,0,0,.29), inset 0px 0px 2px rgba(0,0,0, .5);
+	-moz-box-shadow: 1px 1px 1px rgba(0,0,0,.29), inset 0px 0px 2px rgba(0,0,0, .5);
+	box-shadow: 1px 1px 1px rgba(0,0,0,.29), inset 0px 0px 2px rgba(0,0,0, .5);
+}
+.button:active {
+	-webkit-box-shadow: inset 0px 0px 3px rgba(0,0,0, .8);
+	-moz-box-shadow: inset 0px 0px 3px rgba(0,0,0, .8);
+	box-shadow: inset 0px 0px 3px rgba(0,0,0, .8);
+}
+
+.green {
+	color: #3e5706;
+	background: #a5cd4e;
+}
+
+/* Blue Color */
+
+.blue {
+	color: #19667d;
+	background: #70c9e3;
+}
+
+/* Gray Color */
+
+.gray {
+	color: #515151;
+	background: #d3d3d3;
+}
+
+.big {
+	padding: 0 40px;
+	padding-top: 10px;
+	height: 45px;
+	text-transform: uppercase;
+	font: bold 20px/22px Arial, sans-serif;
+}
+
+.big span {
+	display: block;
+	text-transform: none;
+	font: italic normal 12px/18px Georgia, sans-serif;
+	text-shadow: 1px 1px 1px rgba(255,255,255, .12);
+}
+
+/* .abort{
+	text-shadow: rgb(253, 166, 166)
+} */

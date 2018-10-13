@@ -1,0 +1,266 @@
+<!-- <!DOCTYPE html> -->
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analyze&Predict</title>
+
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/demo.css">
+<link rel='stylesheet' href='http://fonts.googleapis.com/icon?family=Material+Icons' type='text/css'>
+<link rel="stylesheet" href="dist/sidenav.min.css" type="text/css">
+</head>
+<body>
+    <!-- 侧边栏 -->
+    <nav class="sidenav" data-sidenav data-sidenav-toggle="#sidenav-toggle">
+        <div class="sidenav-brand">
+            Analyze&Predict
+        </div>
+
+        <div class="sidenav-header">
+            Menu
+            <!-- <small>secondary text</small> -->
+        </div>
+
+        <ul class="sidenav-menu">
+            <!-- 0、主页 -->
+            <li>
+            <a href="index.html">
+                <span class="sidenav-link-icon">
+                <i class="material-icons">home</i>
+                </span>
+                <span class="sidenav-link-title">Home</span>
+            </a>
+            </li>
+                    
+            <!-- 1、数据可视化 -->
+            <li>
+            <a href="dataVisualize.html">
+                <span class="sidenav-link-icon">
+                <i class="material-icons">assignment_ind</i>
+                </span>
+                <span class="sidenav-link-title"> Data Visualize</span>
+            </a>
+            </li>
+            
+            <!-- 2、数据预处理 -->
+            <li>
+            <a href="dataPreprocess.html">
+                <span class="sidenav-link-icon">
+                <i class="material-icons">alarm</i>
+                </span>
+                <span class="sidenav-link-title">Data Preprocess</span>
+            </a>
+            </li>
+            
+            <!-- 3、机器学习-训练/预测 -->
+            <li>
+            <a href="javascript:;" data-sidenav-dropdown-toggle class="active">
+                <span class="sidenav-link-icon">
+                <i class="material-icons">store</i>
+                </span>
+                <span class="sidenav-link-title">Machine Learning</span>
+                <span class="sidenav-dropdown-icon show" data-sidenav-dropdown-icon>
+                <i class="material-icons">arrow_drop_down</i>
+                </span>
+                <span class="sidenav-dropdown-icon" data-sidenav-dropdown-icon>
+                <i class="material-icons">arrow_drop_up</i>
+                </span>
+            </a>
+
+            <ul class="sidenav-dropdown" data-sidenav-dropdown>
+                <li><a href="train.html">Train</a></li>
+                <li><a href="predict.html">Predict</a></li>
+            </ul>
+            </li>
+            
+        </ul>
+    </nav>
+
+    <!-- 弹出侧边栏的按钮 -->
+    <a href="javascript:;" class="toggle" id="sidenav-toggle">	
+        <i class="material-icons">menu</i>
+    </a>
+
+    <script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="dist/sidenav.min.js"></script>
+    <script>$('[data-sidenav]').sidenav();</script>
+
+<!-- -----------------------------------------------------------------------------
+                                页面主要内容
+----------------------------------------------------------------------------- -->
+<script type="text/javascript" src="lib/echarts.min.js"></script>
+<script type="text/javascript" src="lib/theme/vintage.js"></script>
+<script type="text/javascript" src="lib/theme/dark.js"></script>
+<script type="text/javascript" src="lib/echarts.js"></script>
+<script type="text/javascript" src="lib/echarts-gl.min.js"></script>
+
+<div style="position:absolute; left:250px; top:30px; width: 1600; height:800; text-align:left;margin:50px 0; font:normal 16px/24px 'MicroSoft YaHei';">
+    <h1>Data Visualize</h1><br>
+    <!-- <button id = "show">+</button><br> -->
+    <!-- 横线 -->
+    <div style="width:1500; height:1; position:absolute; left:10px; top:105px; background-color: rgb(180, 148, 148)"></div>
+    
+    <!-- 1、表单 -->
+    <div id="selectTable" style="position:absolute; left:0px; top:140px; width: 400; height:600; ">
+        <h2 align="center">Selection</h2>
+        <div style="position:absolute; left:20px; top:80px;">
+            <form id="form">
+                <h3>DataSet *</h3>
+                <ul>
+                    <li>
+                        <input type="radio" name="index" value="index-c008_03">index-c008_03</a>
+                    </li>
+                    <li>
+                        <input type="radio" name="index" value=".kibana">.kibana</a>
+                    </li>
+                    <li>
+                        <input type="radio" name="index" value="Iris-dgw">Iris-dgw</a>
+                    </li>
+                    <li>
+                        <input type="radio" name="index" value="iris-2">iris-2</a>
+                    </li>
+                    <li>
+                        <input type="radio" name="index" value="iris-3">iris-3</a>
+                    </li>
+                    <li>
+                        <input type="radio" name="index" value="nutrients">nutrients</a>
+                    </li>
+                </ul>
+                <br><h3>range *</h3>
+                <p>From: <input type='text' name="from" value=0 >*<br>
+                <p>Size: <input type='text' name="size" value=150>*<br>
+            </form>
+            <br><button id = "dataVisualizeButton" style="position:absolute; right:0px;">Run</button>
+        </div>
+        <!-- 竖线 -->
+        <div style="width:1; height:600; position:absolute; right:0px; top:30px; background-color: rgb(180, 148, 148)"></div>
+    </div>
+
+    <!-- 2、可视化 -->
+    <div id="visualizeTable" style="position:absolute; right:50px; top:140px; width: 1050; height:600;">
+        <div style="width: 800; height:40; top:0; ">
+            <h2 style="text-align:center">Visualize</h2>
+        </div>
+        
+        <!-- 三维坐标系 -->
+        <div id="main1" style="width: 800; height:600; top:40; display: none;"></div>
+        <!-- 控件，设置展示的属性 -->
+        <div id="controlPane" class="dg main" style="display: none; width: 245px;position: absolute;right: 0px;top:80px;z-index: 1000;">
+        <ul>
+            <li class="cr string">
+                <div>
+                    <span class="property-name">xAxis3D</span>
+                    <div class="c">
+                        <select id="xAxis3D" name="xAxis3D">
+                            <option value="protein">protein</option>
+                            <option value="calcium">calcium</option>
+                            <option value="sodium">sodium</option>
+                            <option value="fiber">fiber</option>
+                            <option value="vitaminc">vitaminc</option>
+                            <option value="potassium">potassium</option>
+                            <option value="carbohydrate">carbohydrate</option>
+                            <option value="sugars">sugars</option>
+                            <option value="fat">fat</option>
+                            <option value="water">water</option>
+                            <option value="calories">calories</option>
+                            <option value="saturated">saturated</option>
+                            <option value="monounsat">monounsat</option>
+                            <option value="polyunsat">polyunsat</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+    
+            <li class="cr string">
+                <div>
+                    <span class="property-name">yAxis3D</span>
+                    <div class="c">
+                        <select id="yAxis3D" name="yAxis3D">
+                            <option value="protein">protein</option>
+                            <option value="calcium">calcium</option>
+                            <option value="sodium">sodium</option>
+                            <option value="fiber">fiber</option>
+                            <option value="vitaminc">vitaminc</option>
+                            <option value="potassium">potassium</option>
+                            <option value="carbohydrate">carbohydrate</option>
+                            <option value="sugars">sugars</option>
+                            <option value="fat">fat</option>
+                            <option value="water">water</option>
+                            <option value="calories">calories</option>
+                            <option value="saturated">saturated</option>
+                            <option value="monounsat">monounsat</option>
+                            <option value="polyunsat">polyunsat</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+    
+            <li class="cr string">
+                <div>
+                    <span class="property-name">zAxis3D</span>
+                    <div class="c">
+                        <select id="zAxis3D" name="zAxis3D" >
+                            <option value="protein">protein</option>
+                            <option value="calcium">calcium</option>
+                            <option value="sodium">sodium</option>
+                            <option value="fiber">fiber</option>
+                            <option value="vitaminc">vitaminc</option>
+                            <option value="potassium">potassium</option>
+                            <option value="carbohydrate">carbohydrate</option>
+                            <option value="sugars">sugars</option>
+                            <option value="fat">fat</option>
+                            <option value="water">water</option>
+                            <option value="calories">calories</option>
+                            <option value="saturated">saturated</option>
+                            <option value="monounsat">monounsat</option>
+                            <option value="polyunsat">polyunsat</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li class="cr string">
+                <div>
+                    <span class="property-name">color</span>
+                    <div class="c">
+                        <select id="color" name="color">
+                            <option value="protein">protein</option>
+                            <option value="calcium">calcium</option>
+                            <option value="sodium">sodium</option>
+                            <option value="fiber">fiber</option>
+                            <option value="vitaminc">vitaminc</option>
+                            <option value="potassium">potassium</option>
+                            <option value="carbohydrate">carbohydrate</option>
+                            <option value="sugars">sugars</option>
+                            <option value="fat">fat</option>
+                            <option value="water">water</option>
+                            <option value="calories">calories</option>
+                            <option value="saturated">saturated</option>
+                            <option value="monounsat">monounsat</option>
+                            <option value="polyunsat">polyunsat</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li class="cr string">
+                <div>
+                    <span class="property-name">symbolSize</span>
+                    <div class="c">
+                        <select id="symbolSize" name="symbolSize">
+                                <option value="vitaminc">vitaminc</option>
+                                <option value="sodium">sodium</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+    
+        </ul>
+        </div>
+    </div>
+    
+</div>
+
+</body>
+<script type="text/javascript" src="dataVisualize2.js"></script>
+</html>

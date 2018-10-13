@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+<div id="container" style="height: 100%"></div>
+
+<div class="dg main" style="width: 245px;position: absolute;right: 5px;top:0px;z-index: 1000;">
+    <ul>
+        <li class="cr string">
+            <div>
+                <span class="property-name">xAxis3D</span>
+                <div class="c">
+                    <select id="xAxis3D" name="xAxis3D">
+                        <option value="protein" selected>protein</option>
+                        <option value="calcium">calcium</option>
+                        <option value="sodium">sodium</option>
+                    </select>
+                </div>
+            </div>
+        </li>
+
+        <li class="cr string">
+            <div>
+                <span class="property-name">yAxis3D</span>
+                <div class="c">
+                    <select id="yAxis3D" name="yAxis3D">
+                        <option value="fiber" select="selected">fiber</option>
+                        <option value="protein">protein</option>
+                    </select>
+                </div>
+            </div>
+        </li>
+
+        <li class="cr string">
+            <div>
+                <span class="property-name">zAxis3D</span>
+                <div class="c">
+                    <select id="zAxis3D" name="zAxis3D">
+                        <option value="sodium" selected>sodium</option>
+                        <option value="calcium">calcium</option>
+                    </select>
+                </div>
+            </div>
+        </li>
+        <li class="cr string">
+            <div>
+                <span class="property-name">color</span>
+                <div class="c">
+                    <select id="color" name="color">
+                        <option value="fiber">fiber</option>
+                    </select>
+                </div>
+            </div>
+        </li>
+        <li class="cr string">
+            <div>
+                <span class="property-name">symbolSize</span>
+                <div class="c">
+                    <select id="symbolSize" name="symbolSize">
+                        <option value="vitaminc">vitaminc</option>
+                        <option value="sodium">sodium</option>
+                    </select>
+                </div>
+            </div>
+        </li>
+
+    </ul>
+</div>
+<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="echarts.js"></script>
+<script type="text/javascript" src="echarts-gl.min.js"></script>
+<script type="text/javascript" src="controls.js"></script>
+
+</body>
+</html>

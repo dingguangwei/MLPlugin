@@ -1,0 +1,3 @@
+适用浏览器：360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. 不支持IE8及以下浏览器。
+
+该版本不可用！！！请用nodejsServer2.1版本

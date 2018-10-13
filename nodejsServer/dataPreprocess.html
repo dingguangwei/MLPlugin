@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Meachine Learning Evaluation</title>
+</head>
+
+<body bgcolor="#fef8ef">
+	<div style="position:absolute;left:100px;top:30px;">
+		<h1><b>Data preprocess</b></h1>
+            
+        <br><h3>Select a dataset</h3>
+        <li>
+            <input type="radio" name="index" value="index-c008_03">index-c008_03</a>
+        </li>
+        <li>
+            <input type="radio" name="index" value=".kibana">.kibana</a>
+        </li>
+        <li>
+            <input type="radio" name="index" value="Iris-dgw">Iris-dgw</a>
+        </li>
+        <li>
+            <input type="radio" name="index" value="Iris-dgw">milk-020</a>
+        </li>
+        <li>
+            <input type="radio" name="index" value="iris-2">iris-2</a>
+        </li>
+        <li>
+            <input type="radio" name="index" value="food-nutrition">food-nutrition</a>
+        </li>
+        <li>
+            <input type="radio" name="index" value="iris-2">iris-2</a>
+        </li>
+
+        <br>
+        <table border="2">
+            <tr><td colspan="3" align="center">Choose preprocess item</td>
+            <tr>
+              <td>1、Regularization</td>
+              <td><input type="radio" name="Regularization" value="1">Yes</td>
+              <td><input type="radio" name="Regularization" value="0">No</td>
+            </tr>
+            <tr>
+                <td>2、Vectorization</td>
+                <td><input type="radio" name="Vectorization" value="1">Yes</td>
+                <td><input type="radio" name="Vectorization" value="0">No</td>
+            </tr>
+            <tr>
+                <td>3、Attribute filling</td>
+                <td><input type="radio" name="Attribute filling" value="1">Yes</td>
+                <td><input type="radio" name="Attribute filling" value="0">No</td>
+            </tr>
+            <tr>
+                <td>4、Attribute Select</td>
+                <td><input type="radio" name="Attribute Select" value="1">Yes</td>
+                <td><input type="radio" name="Attribute Select" value="0">No</td>
+            </tr>
+        </table>
+
+        <br><button>Preprocess</button>
+
+        <div id="befrore" style="position:absolute;left:400px;top:105px;width: 500px;height:400px;">
+                <table height=900 style=border-color:000000;border-left-style:solid;border-width:1px><tr><td valign=top><h3>Data View</h3></table>
+        </div>
+
+
+
+		<!-- <div>
+			<div id="main" style="position:absolute;left:80px;top:80px;width: 800px;height:700px;"></div>
+		</div> -->
+		
+		<script src="lib/echarts.min.js"></script>
+		<script src="lib/echarts-gl.min.js"></script>
+		<script src="lib/theme/vintage.js"></script>
+		<script src="lib/theme/dark.js"></script>
+		<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+	</div>
+</body>
+<script>
+    // 打开nodejs server，输入网址，即可查看该页面 http://127.0.0.1:8080/dataPreprocess.html
+</script>
