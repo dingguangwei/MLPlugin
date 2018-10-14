@@ -153,7 +153,7 @@ function generatePredictURL() {
         alert("Please select a model file !");
         return false;
     }
-    p_url+="mRpath=F:/bc/J48.model";
+    p_url+="mRpath="+=mRpath;
     return true;
 }
 
