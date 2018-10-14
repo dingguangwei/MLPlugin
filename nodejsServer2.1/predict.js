@@ -131,12 +131,13 @@ function generatePredictURL() {
 	s[2] = "from";
     s[3] = "size";
     s[4] = "cAttr";
+    s[5] = "mRpath";
 
 	p_url = "http://127.0.0.1:9200/_taste/parameter?";
 	p_url+="op=32&"
 	var value = new Array();
 	value[0]="";
-	for(var i=1; i<s.length; i++)
+	for(var i=1; i<=4; i++)
 	{
 		value[i] = document.forms[s[0]][s[i]].value;
 		if(value[i]=="" || value[i]==null){
@@ -145,15 +146,16 @@ function generatePredictURL() {
 		}
 		p_url+=s[i]+"="+value[i]+"&";
     }
-    var mRpath = getFileUrl("mRpath");
-    console.log("读取model："+mRpath);
+    var mRpath = document.getElementById("mRpath").value;
+    // var mRpath = getFileUrl("mRpath");
+    // console.log("读取model："+mRpath);
     // document.getElementById("mRpath").value;
     // console.log("默认使用mRpath=F:/bc/J48.model");
     if(mRpath=="" || mRpath==null){
         alert("Please select a model file !");
         return false;
     }
-    p_url+="mRpath="+=mRpath;
+    p_url+="mRpath="+mRpath;
     return true;
 }
 
